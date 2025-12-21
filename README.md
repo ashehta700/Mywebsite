@@ -1,4 +1,4 @@
-# Ahmed Shehta - Full Stack Developer Portfolio
+# Ahmed Shehta - Project Manager Portfolio
 
 A modern, responsive personal resume website built with **HTML5**, **CSS3**, **Bootstrap 5**, and **JavaScript**. Features smooth animations, interactive components, and seamless email integration.
 

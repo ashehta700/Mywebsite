@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GhostShield — Ahmed Shehta</title>
-  <meta name="description" content="أداة لحماية محادثاتك أثناء مشاركة الشاشة في الاجتماعات. رسايلك باينة ليك لوحدك، ومحجوبة بشاشة سوداء عن المشاهدين. تم التطوير بواسطة Ahmed Shehta.">
+  <title>GhostShield — Hardware-Level Screen Share Privacy by Ahmed Shehta</title>
+  <meta name="description" content="Smart privacy tool for Windows & Chrome. Keep your personal chats crisp and visible to you, while completely blacked out for viewers during Zoom, Google Meet & Teams screen sharing. Developed by Ahmed Shehta.">
   
   <!-- Fonts matching Ahmed Shehta Portfolio -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Bootstrap 5.3 matching Portfolio -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+  <!-- Bootstrap 5.3 -->
+  <link id="bootstrapCss" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -27,11 +27,15 @@
     }
 
     body {
-      font-family: 'Cairo', 'Poppins', sans-serif;
+      font-family: 'Poppins', 'Cairo', sans-serif;
       background-color: var(--bs-body-bg);
       color: var(--bs-body-color);
       overflow-x: hidden;
       line-height: 1.7;
+    }
+
+    html[dir="rtl"] body {
+      font-family: 'Cairo', 'Poppins', sans-serif;
     }
 
     /* Navbar matching ahmed-shehta.netlify.app */
@@ -74,6 +78,27 @@
       color: #1a1a1a !important;
     }
 
+    .btn-lang-toggle {
+      background: rgba(255, 235, 0, 0.1);
+      color: var(--brand-yellow);
+      border: 1px solid rgba(255, 235, 0, 0.3);
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-lang-toggle:hover {
+      background: var(--brand-yellow);
+      color: #1a1a1a;
+      border-color: var(--brand-yellow);
+    }
+
     /* Hero Section */
     .hero-section {
       padding: 70px 0 50px;
@@ -108,7 +133,7 @@
     .hero-lead {
       font-size: 1.15rem;
       color: #b5b5b5;
-      max-width: 760px;
+      max-width: 780px;
       margin: 0 auto 35px;
     }
 
@@ -159,145 +184,183 @@
     }
 
     .showcase-header-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #fff;
       display: flex;
       align-items: center;
       gap: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #ddd;
     }
 
     .view-toggle-btns {
       display: flex;
-      gap: 8px;
+      gap: 6px;
+      background: #252525;
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid #333;
     }
 
     .view-btn {
-      background: #272727;
-      color: #bbb;
-      border: 1px solid #444;
+      background: transparent;
+      border: none;
+      color: #aaa;
+      font-size: 0.8rem;
+      font-weight: 600;
       padding: 6px 14px;
       border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
     }
 
+    .view-btn:hover {
+      color: #fff;
+    }
+
     .view-btn.active {
-      background: var(--brand-yellow);
-      color: #1a1a1a;
-      border-color: var(--brand-yellow);
+      background: #333;
+      color: var(--brand-yellow);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
 
     .media-container {
-      position: relative;
       background: #000;
-      min-height: 420px;
+      position: relative;
+      min-height: 380px;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-bottom: 1px solid #333;
     }
 
     .media-container img,
     .media-container video {
       width: 100%;
       height: auto;
-      max-height: 640px;
-      display: block;
+      max-height: 600px;
       object-fit: contain;
+      display: block;
     }
 
+    /* Comparison Details Grid */
     .comparison-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border-top: 1px solid #333;
+      padding: 30px;
+      gap: 30px;
+      background: #1b1b1b;
     }
 
     .comp-col {
-      padding: 28px;
-    }
-
-    .comp-col:first-child {
-      border-left: 1px solid #333;
-      background: #1c1c1c;
-    }
-
-    .comp-col:last-child {
-      background: #172219;
+      padding: 20px;
+      border-radius: 12px;
+      background: #222;
+      border: 1px solid #333;
     }
 
     .comp-badge-bad {
       display: inline-block;
       background: rgba(239, 68, 68, 0.15);
-      color: #ef4444;
-      font-weight: 700;
-      font-size: 0.82rem;
-      padding: 4px 12px;
-      border-radius: 6px;
-      margin-bottom: 12px;
+      color: #f87171;
       border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 14px;
     }
 
     .comp-badge-good {
       display: inline-block;
       background: rgba(34, 197, 94, 0.15);
-      color: #22c55e;
-      font-weight: 700;
-      font-size: 0.82rem;
-      padding: 4px 12px;
-      border-radius: 6px;
-      margin-bottom: 12px;
+      color: #4ade80;
       border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 14px;
     }
 
     .comp-col h4 {
       font-size: 1.15rem;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .comp-col ul {
-      padding-right: 20px;
-      font-size: 0.95rem;
-      color: #bbb;
-      margin-bottom: 0;
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
     .comp-col li {
-      margin-bottom: 8px;
+      font-size: 0.92rem;
+      color: #ccc;
+      margin-bottom: 10px;
+      line-height: 1.6;
+      position: relative;
     }
 
-    /* Platforms Bar */
+    html[dir="ltr"] .comp-col li {
+      padding-left: 20px;
+    }
+    html[dir="ltr"] .comp-col li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--brand-yellow);
+      font-weight: bold;
+    }
+
+    html[dir="rtl"] .comp-col li {
+      padding-right: 20px;
+    }
+    html[dir="rtl"] .comp-col li::before {
+      content: "•";
+      position: absolute;
+      right: 0;
+      color: var(--brand-yellow);
+      font-weight: bold;
+    }
+
+    /* Platforms section */
     .platforms-section {
       padding: 40px 0 60px;
+      border-top: 1px solid #333;
     }
 
     .platform-pill {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.9rem;
+      background: #1f1f1f;
+      border: 1px solid #383838;
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      color: #ddd;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: #eee;
+      margin: 4px;
+      font-weight: 600;
     }
 
     .platform-pill i {
       color: var(--brand-yellow);
     }
 
-    /* Steps */
+    /* 3 Steps */
+    .features-section {
+      background: #202020;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+      padding: 60px 0;
+    }
+
     .step-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: #262626;
+      border: 1px solid #383838;
       border-radius: 12px;
-      padding: 26px;
-      text-align: center;
+      padding: 30px 20px;
       height: 100%;
     }
 
@@ -334,13 +397,12 @@
     @media (max-width: 768px) {
       .hero-title { font-size: 2rem; }
       .comparison-grid { grid-template-columns: 1fr; }
-      .comp-col:first-child { border-left: none; border-bottom: 1px solid #333; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar matching portfolio style -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
       <a class="navbar-brand" href="../">
@@ -350,8 +412,12 @@
       </a>
 
       <div class="ms-auto d-flex align-items-center gap-2">
-        <a href="../" class="btn-portfolio">
-          <i class="fa-solid fa-arrow-left me-1"></i> العودة لموقعي الشخصي
+        <button id="langToggleBtn" class="btn-lang-toggle" title="Switch Language / تغيير اللغة">
+          <i class="fa-solid fa-globe"></i>
+          <span id="langBtnText">عربي</span>
+        </button>
+        <a href="../" class="btn-portfolio" id="backToPortfolioBtn">
+          <i class="fa-solid fa-arrow-left me-1"></i> <span data-i18n="backPortfolio">Back to Portfolio</span>
         </a>
       </div>
     </div>
@@ -360,24 +426,24 @@
   <!-- Hero Section -->
   <section class="hero-section text-center" style="margin-top: 50px;">
     <div class="container">
-      <div class="badge-pill">
-        <i class="fa-solid fa-shield-halved"></i> أداة مجانية للويندوز والمتصفح
+      <div class="badge-pill" data-i18n="badgePill">
+        <i class="fa-solid fa-shield-halved"></i> Free Privacy Tool for Windows & Chrome
       </div>
-      <h1 class="hero-title">
-        شاتك ظاهر قدامك <span>عادي جداً</span>..<br>
-        ومحجوب تماماً بشاشة سوداء عن أي حد في الشير!
+      <h1 class="hero-title" data-i18n="heroTitle">
+        Keep your chats <span>crisp & readable</span> to you..<br>
+        while completely <span>blacked out</span> for viewers in screen share!
       </h1>
-      <p class="hero-lead">
-        أداة خفيفة (230KB) صممتها عشان تحل الموقف المحرج اللي بيحصل معانا كلنا: وأنت في ميتنج شغل أو بتسجل شاشتك، تفتح الواتساب أو الفيسبوك بالغلط قدام الناس.
+      <p class="hero-lead" data-i18n="heroLead">
+        A lightweight 230KB tool engineered to eliminate that awkward moment we all face: sharing your entire screen in a Zoom or Google Meet presentation, and accidentally clicking on WhatsApp, Slack, or personal tabs in front of everyone.
       </p>
 
       <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
-        <a href="GhostShield_v2.3_AhmedShehta.zip" download class="btn-primary-download">
-          <i class="fa-solid fa-download"></i> تحميل الأداة مجاناً (v2.3 Pro)
+        <a href="GhostShield_v2.3_AhmedShehta.zip" download class="btn-primary-download" data-i18n="btnHeroDownload">
+          <i class="fa-solid fa-download"></i> Download GhostShield Free (v2.3 Pro)
         </a>
       </div>
-      <div class="text-secondary small">
-        حجم الملف: 230 كيلوبايت فقط • تثبيت بضغطة زر • متوافق مع Windows 10/11 و Chrome/Edge
+      <div class="text-secondary small" data-i18n="heroMeta">
+        230 KB only • 1-Click Setup • Compatible with Windows 10/11 & Chrome/Edge
       </div>
     </div>
   </section>
@@ -386,25 +452,25 @@
   <section class="showcase-section">
     <div class="container">
       <div class="text-center mb-4">
-        <h2 class="fw-bold text-white">الفرق الحقيقي في لقطة واحدة 🎬</h2>
-        <p class="text-secondary">صورة وفيديو حقيقي من شاشة الاستخدام: إزاي مش بنستخدم Blur يعمي عينك، وبنحجب عن الميتنج فقط</p>
+        <h2 class="fw-bold text-white" data-i18n="showcaseTitle">The Real Difference in One Shot 🎬</h2>
+        <p class="text-secondary" data-i18n="showcaseSubtitle">Actual screen recording: We don't blur your screen with annoying CSS filters — we block it exclusively from the stream.</p>
       </div>
 
       <div class="showcase-card">
         <div class="showcase-header">
-          <div class="showcase-header-title">
+          <div class="showcase-header-title" data-i18n="showcaseHeaderTitle">
             <i class="fa-solid fa-display text-warning"></i>
-            <span>المعاينة الحية: شاشتك الحقيقية (يمين) مقابل شاشة الميتنج (يسار)</span>
+            <span>Live Preview: Your Real Monitor (Right) vs. Meeting Screen (Left)</span>
           </div>
           <div class="view-toggle-btns">
-            <button id="btn-show-gif" class="view-btn active">
-              <i class="fa-solid fa-play me-1"></i> صورة متحركة (GIF)
+            <button id="btn-show-gif" class="view-btn active" data-i18n="btnShowGif">
+              <i class="fa-solid fa-play me-1"></i> Animated GIF
             </button>
-            <button id="btn-show-video" class="view-btn">
-              <i class="fa-solid fa-film me-1"></i> الفيديو الكامل (1080p)
+            <button id="btn-show-video" class="view-btn" data-i18n="btnShowVideo">
+              <i class="fa-solid fa-film me-1"></i> Full Video (1080p)
             </button>
-            <button id="btn-show-photo" class="view-btn">
-              <i class="fa-solid fa-image me-1"></i> صورة ثابتة
+            <button id="btn-show-photo" class="view-btn" data-i18n="btnShowPhoto">
+              <i class="fa-solid fa-image me-1"></i> Screenshot
             </button>
           </div>
         </div>
@@ -417,7 +483,7 @@
           <!-- Video Mode (Hidden initially) -->
           <video id="demo-video" controls loop style="display:none;" poster="real_comparison.jpg">
             <source src="ghostshield_video.mp4" type="video/mp4">
-            متصفحك لا يدعم تشغيل الفيديو.
+            Your browser does not support playing video.
           </video>
 
           <!-- Photo Mode (Hidden initially) -->
@@ -428,23 +494,23 @@
         <div class="comparison-grid">
           <!-- Col 1: Old blur -->
           <div class="comp-col">
-            <span class="comp-badge-bad">❌ إضافات التمويه التقليدية (Blur)</span>
-            <h4 class="text-white">المشكلة: بتعمي عينك أنت كمان!</h4>
-            <ul>
-              <li><strong>صعوبة في القراءة:</strong> المحادثات بتكون مغبشة لدرجة إنك أنت شخصياً مش عارف تقرأ الرسايل.</li>
-              <li><strong>مخاطرة بالماوس:</strong> أول ما تعدي بالماوس فوق أي رسالة بالخطأ، بتفك التمويه وتظهر فوراً للمشاهدين في الشير!</li>
-              <li><strong>حل سطحي:</strong> بيعتمد على CSS داخل الصفحة مش بيتحكم في اللي كارت الشاشة بيصوره فعلياً.</li>
+            <span class="comp-badge-bad" data-i18n="compBadBadge">❌ Traditional Blur Extensions (Problematic)</span>
+            <h4 class="text-white" data-i18n="compBadTitle">The Problem: Blurs your own vision too!</h4>
+            <ul data-i18n="compBadList">
+              <li><strong>Unreadable messages:</strong> Chats are so heavily blurred that you cannot even read what clients or teammates sent you.</li>
+              <li><strong>Dangerous hover leaks:</strong> The moment your cursor moves over a message, the blur removes itself and exposes your chat directly to the stream!</li>
+              <li><strong>Shallow CSS trick:</strong> Only injects in-page CSS filters; it has zero control over what GPU screen capture actually transmits.</li>
             </ul>
           </div>
 
           <!-- Col 2: GhostShield -->
           <div class="comp-col">
-            <span class="comp-badge-good">✔ حل GhostShield الذكي</span>
-            <h4 class="text-white">الحل: أنت شايف كل حاجة، والناس شايفة شاشة سوداء!</h4>
-            <ul>
-              <li><strong>رؤية طبيعية 100%:</strong> بتقرأ وتكتب وترد على رسايلك بكامل وضوحها بدون أي تشويش أو إرهاق لعينك.</li>
-              <li><strong>حجب فعلي لكارت الشاشة:</strong> بيستخدم تقنية ويندوز الرسمية <code>WDA_EXCLUDEFROMCAPTURE</code>، فالزوم والميت بيشوفوا شاشة سوداء تماماً.</li>
-              <li><strong>تبديل تلقائي وسلس:</strong> مش محتاج تفتح صفحات مستقلة، بمجرد ما تفتح تاب الشات بيحجبها، وترجع لتاب الشغل بيظهر الشير فوراً.</li>
+            <span class="comp-badge-good" data-i18n="compGoodBadge">✔ GhostShield Engineering Fix</span>
+            <h4 class="text-white" data-i18n="compGoodTitle">The Solution: Crisp to you, solid black to the stream!</h4>
+            <ul data-i18n="compGoodList">
+              <li><strong>100% Crisp Visibility:</strong> Read, write, and reply to chats in full crystal clarity with zero eye fatigue or distortion.</li>
+              <li><strong>Native GPU Exclusion:</strong> Powered by Windows <code>SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)</code> — Zoom, Meet & Teams capture 100% solid black.</li>
+              <li><strong>Automatic Dynamic Switching:</strong> No manual windows needed. Switch to your chat tab and it shields instantly; switch back to work tabs and sharing resumes seamlessly.</li>
             </ul>
           </div>
         </div>
@@ -455,7 +521,7 @@
   <!-- Platforms Supported -->
   <section class="platforms-section text-center">
     <div class="container">
-      <h3 class="fw-bold mb-4">المنصات المدعومة تلقائياً</h3>
+      <h3 class="fw-bold mb-4" data-i18n="platformsTitle">Supported Platforms Automatically</h3>
       <div class="d-flex justify-content-center flex-wrap gap-2">
         <div class="platform-pill"><i class="fa-brands fa-whatsapp"></i> WhatsApp Web</div>
         <div class="platform-pill"><i class="fa-brands fa-telegram"></i> Telegram Web</div>
@@ -465,105 +531,219 @@
         <div class="platform-pill"><i class="fa-brands fa-x-twitter"></i> X (Twitter) DMs</div>
         <div class="platform-pill"><i class="fa-brands fa-discord"></i> Discord Web</div>
         <div class="platform-pill"><i class="fa-brands fa-slack"></i> Slack Web</div>
-        <div class="platform-pill"><i class="fa-brands fa-windows"></i> برامج الويندوز الديسكتوب</div>
-        <div class="platform-pill" style="border-color: #ffc107; color: #ffc107; background: rgba(255, 193, 7, 0.1);"><i class="fa-solid fa-plus-circle text-warning"></i> + أي موقع مخصص تحدده بنفسك (Custom Domains)</div>
+        <div class="platform-pill" data-i18n="pillDesktop"><i class="fa-brands fa-windows"></i> Windows Desktop Apps</div>
+        <div class="platform-pill" style="border-color: #ffc107; color: #ffc107; background: rgba(255, 193, 7, 0.1);" data-i18n="pillCustom">
+          <i class="fa-solid fa-plus-circle text-warning"></i> + Any Custom Website you specify (Custom Domains)
+        </div>
       </div>
     </div>
   </section>
 
   <!-- How It Works in 3 Steps -->
-  <section class="features-section" style="background:#202020; border-top:1px solid #333; border-bottom:1px solid #333; padding: 60px 0;">
+  <section class="features-section">
     <div class="container">
       <div class="text-center mb-5">
-        <h2 class="fw-bold">طريقة التشغيل في 10 ثوانٍ ⚡</h2>
-        <p class="text-secondary">بدون أي خطوات تسجيل أو تعقيدات تقنية</p>
+        <h2 class="fw-bold" data-i18n="stepsTitle">Up and Running in 10 Seconds ⚡</h2>
+        <p class="text-secondary" data-i18n="stepsSubtitle">Zero account registration, zero complex setups</p>
       </div>
 
       <div class="row g-4 text-center">
         <div class="col-md-4">
           <div class="step-card">
             <div class="step-number">1</div>
-            <h4 class="fw-bold text-white mb-2">حمّل الملف المضغوط</h4>
-            <p class="text-secondary small mb-0">حمّل حزمة التثبيت (230 كيلوبايت فقط) وفك الضغط عنها في أي مكان على جهازك.</p>
+            <h4 class="fw-bold text-white mb-2" data-i18n="step1Title">Download Package</h4>
+            <p class="text-secondary small mb-0" data-i18n="step1Desc">Download the tiny 230KB ZIP and extract it anywhere on your machine.</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="step-card">
             <div class="step-number">2</div>
-            <h4 class="fw-bold text-white mb-2">اضغط على Install</h4>
-            <p class="text-secondary small mb-0">اضغط دبل كليك على <code>Install_GhostShield.bat</code> ليقوم بربط الأداة بالمتصفح وفتح صفحة الإضافات تلقائياً.</p>
+            <h4 class="fw-bold text-white mb-2" data-i18n="step2Title">Run Install Script</h4>
+            <p class="text-secondary small mb-0" data-i18n="step2Desc">Double-click <code>Install_GhostShield.bat</code> to register the Windows background companion and open Chrome extensions automatically.</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="step-card">
             <div class="step-number">3</div>
-            <h4 class="fw-bold text-white mb-2">فعّل الإضافة واستمتع</h4>
-            <p class="text-secondary small mb-0">اضغط Load Unpacked في كروم واختر مجلد Extension. مبروك، شاشتك أصبحت محمية دائماً في كل اجتماعاتك!</p>
+            <h4 class="fw-bold text-white mb-2" data-i18n="step3Title">Load Unpacked & Enjoy</h4>
+            <p class="text-secondary small mb-0" data-i18n="step3Desc">Click 'Load unpacked' in Chrome and select the Extension folder. Done! Your meetings are protected forever.</p>
           </div>
         </div>
       </div>
 
       <div class="text-center mt-5">
-        <a href="GhostShield_v2.3_AhmedShehta.zip" download class="btn-primary-download">
-          <i class="fa-solid fa-download me-2"></i> تحميل الحزمة المجانية الآن (v2.3 Pro)
+        <a href="GhostShield_v2.3_AhmedShehta.zip" download class="btn-primary-download" data-i18n="btnBottomDownload">
+          <i class="fa-solid fa-download me-2"></i> Download Free Package Now (v2.3 Pro)
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Footer matching portfolio style -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="mb-3">
-        <img src="logo.png" alt="Ahmed Shehta" width="40" height="40" class="d-inline-block mb-2">
-        <h5 class="fw-bold text-white mb-1">Ahmed Shehta</h5>
-        <p class="text-secondary small">Project Manager & Software Engineer</p>
-      </div>
-      <p class="mb-2">
-        الموقع الرسمي للمطور: <a href="../" target="_blank">ahmed-shehta.netlify.app</a>
+      <p class="mb-2" data-i18n="footerText">
+        Designed & Developed by <a href="../">Ahmed Shehta</a> • All Rights Reserved
       </p>
-      <p class="small text-secondary mb-0">
-        © 2026 GhostShield • أداة مجانية مفتوحة صُممت لحل مشكلات الخصوصية الواقعية أثناء العمل عن بعد.
-      </p>
+      <p class="small text-muted mb-0">GhostShield is free and open for personal and professional use.</p>
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
+    // Translations Dictionary
+    const I18N = {
+      en: {
+        pageTitle: "GhostShield — Hardware-Level Screen Share Privacy by Ahmed Shehta",
+        langBtn: "عربي",
+        backPortfolio: "Back to Portfolio",
+        badgePill: '<i class="fa-solid fa-shield-halved"></i> Free Privacy Tool for Windows & Chrome',
+        heroTitle: 'Keep your chats <span>crisp & readable</span> to you..<br>while completely <span>blacked out</span> for viewers in screen share!',
+        heroLead: 'A lightweight 230KB tool engineered to eliminate that awkward moment we all face: sharing your entire screen in a Zoom or Google Meet presentation, and accidentally clicking on WhatsApp, Slack, or personal tabs in front of everyone.',
+        btnHeroDownload: '<i class="fa-solid fa-download"></i> Download GhostShield Free (v2.3 Pro)',
+        heroMeta: '230 KB only • 1-Click Setup • Compatible with Windows 10/11 & Chrome/Edge',
+        showcaseTitle: 'The Real Difference in One Shot 🎬',
+        showcaseSubtitle: "Actual screen recording: We don't blur your screen with annoying CSS filters — we block it exclusively from the stream.",
+        showcaseHeaderTitle: '<i class="fa-solid fa-display text-warning"></i> <span>Live Preview: Your Real Monitor (Right) vs. Meeting Screen (Left)</span>',
+        btnShowGif: '<i class="fa-solid fa-play me-1"></i> Animated GIF',
+        btnShowVideo: '<i class="fa-solid fa-film me-1"></i> Full Video (1080p)',
+        btnShowPhoto: '<i class="fa-solid fa-image me-1"></i> Screenshot',
+        compBadBadge: '❌ Traditional Blur Extensions (Problematic)',
+        compBadTitle: 'The Problem: Blurs your own vision too!',
+        compBadList: '<li><strong>Unreadable messages:</strong> Chats are so heavily blurred that you cannot even read what clients or teammates sent you.</li><li><strong>Dangerous hover leaks:</strong> The moment your cursor moves over a message, the blur removes itself and exposes your chat directly to the stream!</li><li><strong>Shallow CSS trick:</strong> Only injects in-page CSS filters; it has zero control over what GPU screen capture actually transmits.</li>',
+        compGoodBadge: '✔ GhostShield Engineering Fix',
+        compGoodTitle: 'The Solution: Crisp to you, solid black to the stream!',
+        compGoodList: '<li><strong>100% Crisp Visibility:</strong> Read, write, and reply to chats in full crystal clarity with zero eye fatigue or distortion.</li><li><strong>Native GPU Exclusion:</strong> Powered by Windows <code>SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)</code> — Zoom, Meet & Teams capture 100% solid black.</li><li><strong>Automatic Dynamic Switching:</strong> No manual windows needed. Switch to your chat tab and it shields instantly; switch back to work tabs and sharing resumes seamlessly.</li>',
+        platformsTitle: 'Supported Platforms Automatically',
+        pillDesktop: '<i class="fa-brands fa-windows"></i> Windows Desktop Apps',
+        pillCustom: '<i class="fa-solid fa-plus-circle text-warning"></i> + Any Custom Website you specify (Custom Domains)',
+        stepsTitle: 'Up and Running in 10 Seconds ⚡',
+        stepsSubtitle: 'Zero account registration, zero complex setups',
+        step1Title: 'Download Package',
+        step1Desc: 'Download the tiny 230KB ZIP and extract it anywhere on your machine.',
+        step2Title: 'Run Install Script',
+        step2Desc: 'Double-click <code>Install_GhostShield.bat</code> to register the Windows background companion and open Chrome extensions automatically.',
+        step3Title: 'Load Unpacked & Enjoy',
+        step3Desc: "Click 'Load unpacked' in Chrome and select the Extension folder. Done! Your meetings are protected forever.",
+        btnBottomDownload: '<i class="fa-solid fa-download me-2"></i> Download Free Package Now (v2.3 Pro)',
+        footerText: 'Designed & Developed by <a href="../">Ahmed Shehta</a> • All Rights Reserved'
+      },
+      ar: {
+        pageTitle: "GhostShield — حماية خصوصية الشاشة بمستوى الهاردوير بواسطة Ahmed Shehta",
+        langBtn: "English",
+        backPortfolio: "العودة لموقعي الشخصي",
+        badgePill: '<i class="fa-solid fa-shield-halved"></i> أداة حماية مجانية للويندوز والمتصفح',
+        heroTitle: 'شاتك ظاهر قدامك <span>عادي جداً</span>..<br>ومحجوب تماماً بشاشة سوداء عن أي حد في الشير!',
+        heroLead: 'أداة خفيفة (230KB) صممتها عشان تحل الموقف المحرج اللي بيحصل معانا كلنا: وأنت في ميتنج شغل أو بتسجل شاشتك على Zoom أو Google Meet، تفتح الواتساب أو سلاك أو تاب خاصة بالغلط قدام الناس.',
+        btnHeroDownload: '<i class="fa-solid fa-download"></i> تحميل الأداة مجاناً (v2.3 Pro)',
+        heroMeta: 'حجم الملف: 230 كيلوبايت فقط • تثبيت بضغطة زر • متوافق مع Windows 10/11 و Chrome/Edge',
+        showcaseTitle: 'الفرق الحقيقي في لقطة واحدة 🎬',
+        showcaseSubtitle: 'مقارنة حية من شاشة الاستخدام: إزاي مش بنستخدم Blur يعمي عينك، وبنحجب عن الميتنج فقط بدون أي تشويش.',
+        showcaseHeaderTitle: '<i class="fa-solid fa-display text-warning"></i> <span>المعاينة الحية: شاشتك الحقيقية (يمين) مقابل شاشة الميتنج (يسار)</span>',
+        btnShowGif: '<i class="fa-solid fa-play me-1"></i> صورة متحركة (GIF)',
+        btnShowVideo: '<i class="fa-solid fa-film me-1"></i> الفيديو الكامل (1080p)',
+        btnShowPhoto: '<i class="fa-solid fa-image me-1"></i> صورة ثابتة',
+        compBadBadge: '❌ إضافات التمويه التقليدية (Blur)',
+        compBadTitle: 'المشكلة: بتعمي عينك أنت كمان!',
+        compBadList: '<li><strong>صعوبة في القراءة:</strong> المحادثات بتكون مغبشة لدرجة إنك أنت شخصياً مش عارف تقرأ الرسايل اللي مبعوتالك.</li><li><strong>مخاطرة بالماوس:</strong> أول ما تعدي بالماوس فوق أي رسالة بالخطأ، بتفك التمويه وتظهر فوراً للمشاهدين في الشير!</li><li><strong>حل سطحي:</strong> بيعتمد على CSS داخل الصفحة مش بيتحكم في اللي كارت الشاشة بيصوره فعلياً.</li>',
+        compGoodBadge: '✔ حل GhostShield الذكي',
+        compGoodTitle: 'الحل: أنت شايف كل حاجة، والناس شايفة شاشة سوداء!',
+        compGoodList: '<li><strong>رؤية طبيعية 100%:</strong> بتقرأ وتكتب وترد على رسايلك بكامل وضوحها بدون أي تشويش أو إرهاق لعينك.</li><li><strong>حجب فعلي لكارت الشاشة:</strong> بيستخدم تقنية ويندوز الرسمية <code>SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)</code>، فالزوم والميت بيشوفوا شاشة سوداء تماماً.</li><li><strong>تبديل تلقائي وسلس:</strong> مش محتاج تفتح صفحات مستقلة، بمجرد ما تفتح تاب الشات بيحجبها، وترجع لتاب الشغل بيظهر الشير فوراً.</li>',
+        platformsTitle: 'المنصات المدعومة تلقائياً',
+        pillDesktop: '<i class="fa-brands fa-windows"></i> برامج الويندوز الديسكتوب',
+        pillCustom: '<i class="fa-solid fa-plus-circle text-warning"></i> + أي موقع مخصص تحدده بنفسك (Custom Domains)',
+        stepsTitle: 'طريقة التشغيل في 10 ثوانٍ ⚡',
+        stepsSubtitle: 'بدون أي خطوات تسجيل أو تعقيدات تقنية',
+        step1Title: 'حمّل الملف المضغوط',
+        step1Desc: 'حمّل حزمة التثبيت (230 كيلوبايت فقط) وفك الضغط عنها في أي مكان على جهازك.',
+        step2Title: 'اضغط على Install',
+        step2Desc: 'اضغط دبل كليك على <code>Install_GhostShield.bat</code> ليقوم بربط الأداة بالمتصفح وفتح صفحة الإضافات تلقائياً.',
+        step3Title: 'فعّل الإضافة واستمتع',
+        step3Desc: 'اضغط Load Unpacked في كروم واختر مجلد Extension. مبروك، شاشتك أصبحت محمية دائماً في كل اجتماعاتك!',
+        btnBottomDownload: '<i class="fa-solid fa-download me-2"></i> تحميل الحزمة المجانية الآن (v2.3 Pro)',
+        footerText: 'تم التصميم والتطوير بواسطة <a href="../">Ahmed Shehta</a> • جميع الحقوق محفوظة'
+      }
+    };
+
+    let currentLang = localStorage.getItem('ghostshield_lang') || 'en';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ghostshield_lang', lang);
+
+      const t = I18N[lang];
+      document.title = t.pageTitle;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+      const bootstrapLink = document.getElementById('bootstrapCss');
+      if (lang === 'ar') {
+        bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css';
+      } else {
+        bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css';
+      }
+
+      document.getElementById('langBtnText').textContent = t.langBtn;
+
+      // Update back button icon orientation
+      const backBtn = document.getElementById('backToPortfolioBtn');
+      if (lang === 'ar') {
+        backBtn.innerHTML = '<i class="fa-solid fa-arrow-right ms-1"></i> ' + t.backPortfolio;
+      } else {
+        backBtn.innerHTML = '<i class="fa-solid fa-arrow-left me-1"></i> ' + t.backPortfolio;
+      }
+
+      // Apply i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+          el.innerHTML = t[key];
+        }
+      });
+    }
+
+    document.getElementById('langToggleBtn').addEventListener('click', () => {
+      setLanguage(currentLang === 'en' ? 'ar' : 'en');
+    });
+
+    // Initialize default language (English)
+    setLanguage(currentLang);
+
+    // Media Switcher logic (GIF / Video / Photo)
     const btnGif = document.getElementById('btn-show-gif');
     const btnVideo = document.getElementById('btn-show-video');
     const btnPhoto = document.getElementById('btn-show-photo');
-
     const demoGif = document.getElementById('demo-gif');
     const demoVideo = document.getElementById('demo-video');
     const demoPhoto = document.getElementById('demo-photo');
 
-    function setActiveTab(btn) {
-      [btnGif, btnVideo, btnPhoto].forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    function hideAllMedia() {
+      demoGif.style.display = 'none';
+      demoVideo.style.display = 'none';
+      demoPhoto.style.display = 'none';
+      demoVideo.pause();
+      btnGif.classList.remove('active');
+      btnVideo.classList.remove('active');
+      btnPhoto.classList.remove('active');
     }
 
     btnGif.addEventListener('click', () => {
-      setActiveTab(btnGif);
+      hideAllMedia();
       demoGif.style.display = 'block';
-      demoVideo.style.display = 'none';
-      demoPhoto.style.display = 'none';
-      demoVideo.pause();
+      btnGif.classList.add('active');
     });
 
     btnVideo.addEventListener('click', () => {
-      setActiveTab(btnVideo);
-      demoGif.style.display = 'none';
+      hideAllMedia();
       demoVideo.style.display = 'block';
-      demoPhoto.style.display = 'none';
-      demoVideo.play();
+      demoVideo.play().catch(() => {});
+      btnVideo.classList.add('active');
     });
 
     btnPhoto.addEventListener('click', () => {
-      setActiveTab(btnPhoto);
-      demoGif.style.display = 'none';
-      demoVideo.style.display = 'none';
+      hideAllMedia();
       demoPhoto.style.display = 'block';
-      demoVideo.pause();
+      btnPhoto.classList.add('active');
     });
   </script>
 </body>
